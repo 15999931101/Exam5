@@ -1,0 +1,4 @@
+@CHARSET "UTF-8";
+tb,tr,td{
+    border: 2px solid silver;
+}
