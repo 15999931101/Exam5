@@ -1,3 +1,4 @@
 mvn clean;
 mvn compile;
 mvn tomcat:run;
+数据密码要在com.hand.dao.Imp中GetConntion修改
