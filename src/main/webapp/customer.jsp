@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="com.hand.dao.Imp.GetConnetion"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
@@ -15,6 +16,7 @@
     <script src="jquery-2.1.1.min.js"></script>
     <script src="bootstrap.min.js"></script>
     <link href="mycss.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="my.js"></script>
 </head>
 <body>
 <%
@@ -23,14 +25,15 @@
 	    /* String sql="select   c.first_name,c.last_name,a.address,c.email,c.customer_id,c.last_update FROM customer c, address a WHERE 
 	    		c.address_id=a.address_id "; */  
       String sql ="select c.customer_id,c.first_name,a.address,c.last_name , c.email, c.last_update from customer c, address a WHERE "
-      +"c.address_id = a.address_id LIMIT 20";	
+      +"c.address_id = a.address_id ORDER BY customer_id  DESC LIMIT 12  ";	
 		PreparedStatement ps1 = conn.prepareCall(sql);
 		ResultSet rs = ps1.executeQuery(sql);//执行sql语句
 	%>
-<div class="container">
+<div class="container1">
 
    <div class="content">
-   <div> 客户管理</div>
+   <div><pre> <span>客户管理</span>                     <a href="addCustomer.jsp" id="add" style="font-size: 18px;">新建</a></pre></div>
+ 
    <hr>
    <div>
       <table style="boder:2px solid">
@@ -59,10 +62,9 @@
 			while (rs.next()) {
 		%>
 		<tr>
-		    <td><a href="modify.jsp?customer_id=<%=rs.getLong(1)%>&first_name=<%=rs.getString(2)%>&last_name=<%=rs.getString(3)%>
-			&email=<%=rs.getString(4)%>&address=<%=rs.getString(5)%>&last-update=<%=rs.getString(6)%> ">修改</a>
-			<a href="modify.jsp?film_id=<%=rs.getLong(1)%>&title=<%=rs.getString(2)%>&description=<%=rs.getString(3)%>
-			&language=<%=rs.getString(4)%> ">更新</a>
+		    <td><a id="modify" href="updateCustomer.jsp?customer_id=<%=rs.getLong(1)%>&first_name=<%=rs.getString("first_name")%>&last_name=<%=rs.getString("last_name")%>
+			&email=<%=rs.getString("email")%>&address=<%=rs.getString("address")%>&last_update=<%=rs.getString("last_update")%> ">编辑</a>
+			<a id="delte"href="<%=request.getContextPath()%>/deleteServlet?customer_id=<%=rs.getLong("customer_id")%> ">删除</a>
 			</td>
 			<td><%=rs.getString(2)%></td>
 			<td><%=rs.getString(3)%></td>
@@ -75,6 +77,16 @@
 
 		<%
 			}
+		%>
+		<%
+		try{
+			if(rs!=null)
+				rs.close();
+			if(conn!=null)
+				conn.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
 		%>
 
 

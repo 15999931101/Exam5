@@ -11,7 +11,7 @@
   </filter>
   <filter-mapping>
   	<filter-name>PermissionFilter</filter-name>
-  	<url-pattern>/*</url-pattern>
+  	<url-pattern>*.jsp</url-pattern>
   </filter-mapping>
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
@@ -32,6 +32,24 @@
   	<description></description>
   	<servlet-class>com.hand.servlet.updateServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>deleteServlet</servlet-name>
+  	<display-name>deleteServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.hand.servlet.deleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddServlet</servlet-name>
+  	<display-name>AddServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.hand.servlet.AddServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>logoutServlet</servlet-name>
+  	<display-name>logoutServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.hand.servlet.logoutServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/LoginServlet</url-pattern>
@@ -39,6 +57,18 @@
   <servlet-mapping>
   	<servlet-name>updateServlet</servlet-name>
   	<url-pattern>/updateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>deleteServlet</servlet-name>
+  	<url-pattern>/deleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddServlet</servlet-name>
+  	<url-pattern>/AddServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>logoutServlet</servlet-name>
+  	<url-pattern>/logoutServlet</url-pattern>
   </servlet-mapping>
   
 </web-app>

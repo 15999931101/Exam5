@@ -6,21 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录页面</title>
 <link href="style.css" type="text/css" rel="stylesheet">
-<style type="text/css">
-/* body {
-	color: #000;
-	font-size: 14px;
-	margin: 0px;
-	padding: 0px;
-	background: url("src/main/webapp/12110811076093.jpg") no-repeat center 0;
-	
-} */
-</style>
+
 </head>
 <body >
 <div class="container">
-		<div class="header">
-			<h1>8837</h1>
+		<div class="header" style="margin: 0px;">
+			<h1>8837 林立鹏</h1>
 		</div>
 		<div class="content">
 			<center>

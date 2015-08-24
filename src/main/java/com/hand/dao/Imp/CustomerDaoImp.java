@@ -28,13 +28,24 @@ public class CustomerDaoImp implements CustomerDao {
 		
 		
 		
-		String insertSql = "insert into film(title,description,language_id,"
-				+ "rental_duration,rental_rate,replacement_cost,last_update) values(?,?,?,?,?,?,?)";
+		String insertSql = "insert into customer(store_id,first_name,last_name,"
+				+ "email,address_id,active,create_date,last_update) values(?,?,?,?,?,?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(insertSql);	
-		
+		ps.setLong(1, cst.getStore_id());
+		ps.setString(2, cst.getFirst_name());
+		ps.setString(3, cst.getLast_name());
+		ps.setString(4,cst.getEmail());
+		ps.setLong(5,cst.getAddress_id());
+		ps.setLong(6,cst.getActive());
+		ps.setString(7,cst.getCreate_date());
+		ps.setString(8,cst.getLastUpdatetime());
 	
 		ps.execute();
 		System.out.println("添加成功");
+		if( ps != null) 
+	        ps.close(); 		
+	    if(conn!= null) 
+	        conn.close(); 
 		
 	}
 
@@ -44,26 +55,49 @@ public class CustomerDaoImp implements CustomerDao {
 //		String rental_rate="1.00";
 //		String replacement_cost="20.00";
 //		String last_update="2015-8-16 ";
+		System.out.println(cst.getStore_id()+"\t"+cst.getFirst_name()+"\t"+cst.getCustomer_id()+cst.getCreate_date()+"\t"+cst.getLastUpdatetime());
+//		String insertSql = "update customer set store_id=?,first_name=?,last_name=?,"
+//				+ "email=?,address_id=？,active=?,create_date=?,last_update=? where customer_id="+cst.getCustomer_id();
+	    String sql="UPDATE customer SET store_id=?,first_name=?,last_name=?,email=?,address_id=?,active=?,create_date=?,last_update=? WHERE customer_id = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);	
 		
-		String insertSql = "update film set title=?,description=?,language_id=? where film_id = ?";
-		PreparedStatement ps = conn.prepareStatement(insertSql);	
-		
-		ps.setString(1, cst.getAddress());
-		
-
-			
+		ps.setLong(1, cst.getStore_id());
+		ps.setString(2,cst.getFirst_name());
+		ps.setString(3, cst.getLast_name());
+		ps.setString(4,cst.getEmail());
+		ps.setLong(5,cst.getAddress_id());
+		ps.setLong(6,cst.getActive());
+		ps.setString(7,cst.getCreate_date());
+		ps.setString(8,cst.getLastUpdatetime());	
+	    ps.setLong(9, cst.getCustomer_id());
 		ps.execute();
 		System.out.println("更新成功");
+		if( ps != null) 
+	        ps.close(); 		
+	    if(conn!= null) 
+	     conn.close(); 
 		
 	}
 
 	public void delete(Connection conn, Customer cs) throws SQLException {
-		String insertSql = "delete from film where customer_id=?";
-		PreparedStatement ps = conn.prepareStatement(insertSql);	
 		
-		ps.setLong(1,cs.getCustomer_id());			
-		ps.execute();
 		System.out.println("删除成功");
+		
+			String Sql = "delete from customer where customer_id=?";
+			PreparedStatement ps = conn.prepareStatement(Sql);	
+		try{	
+			ps.setLong(1,cs.getCustomer_id());			
+			ps.execute();
+		}catch(SQLException e){
+		  e.printStackTrace();
+		}		
+		finally
+	    {
+	      if( ps != null) 
+	        ps.close(); 		
+	      if(conn!= null) 
+	        conn.close(); 
+	    }
 		
 		
 	}

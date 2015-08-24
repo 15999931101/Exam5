@@ -1,6 +1,8 @@
 package com.hand.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("url===>"+returnUri);
 		System.out.println("用户名==>"+userName);
 		System.out.println("密码==>" + password);
-		if(userName == null  ){
+		if(userName == null && password==null ){
 			System.out.println("checkServlet密码或用户名为空");
 			req.setAttribute("msg", "用户名或密码为空");
 			req.getRequestDispatcher("/login.jsp").forward(req, resp);
@@ -49,16 +51,18 @@ public class LoginServlet extends HttpServlet {
 
 			User user = new User();
 			user.setName(userName);
+			
 			//			user.setPasswod(password);
 			boolean flag1 = cu.check(user);
-
+			
 			if(flag1){
-
+				String admin=user.getName();
 				req.getSession().setAttribute("flag", "login_success");
+				req.getSession().setAttribute("admin", admin);
 
 				if (returnUri != null) {
-
-					req.getRequestDispatcher(returnUri).forward(req, resp);
+					req.getRequestDispatcher("index.jsp").forward(req, resp);
+//					req.getRequestDispatcher(returnUri).forward(req, resp);
 				} else {
 
 					req.getRequestDispatcher("index.jsp").forward(req, resp);
@@ -66,7 +70,8 @@ public class LoginServlet extends HttpServlet {
 			}else{
 				req.getSession().setAttribute("flag", "login_error");
 				req.setAttribute("msg", "用户名或密码错误！");
-				req.getRequestDispatcher("error.jsp").forward(req, resp);
+				req.getRequestDispatcher("login.jsp").forward(req, resp);
+				
 			}
 		}
 	}
