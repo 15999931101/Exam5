@@ -81,24 +81,20 @@ public class CustomerDaoImp implements CustomerDao {
 
 	public void delete(Connection conn, Customer cs) throws SQLException {
 		
-		System.out.println("删除成功");
-		
-			String Sql = "delete from customer where customer_id=?";
-			PreparedStatement ps = conn.prepareStatement(Sql);	
-		try{	
-			ps.setLong(1,cs.getCustomer_id());			
-			ps.execute();
-		}catch(SQLException e){
-		  e.printStackTrace();
-		}		
-		finally
-	    {
-	      if( ps != null) 
-	        ps.close(); 		
-	      if(conn!= null) 
-	        conn.close(); 
-	    }
-		
+			System.out.println("删除成功");
+		String sql = "DELETE FROM payment WHERE customer_id=?";
+		PreparedStatement preparedStatement = conn.prepareCall(sql);
+		preparedStatement.setInt(1, cs.getCustomer_id());
+		preparedStatement.execute();
+		sql = "DELETE FROM rental WHERE customer_id=?";
+		preparedStatement = conn.prepareCall(sql);
+		preparedStatement.setInt(1, cs.getCustomer_id());
+		preparedStatement.execute();
+		sql = "DELETE FROM customer WHERE customer_id=?";
+		preparedStatement = conn.prepareCall(sql);
+		preparedStatement.setInt(1, cs.getCustomer_id());
+		preparedStatement.execute();
+		preparedStatement.close();
 		
 	}
 
